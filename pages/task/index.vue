@@ -1,16 +1,17 @@
 <template>
     <MenuButtons />
     <h1 class="correctTask">
-    <ul class="ul">
-            <li v-for="todo in todos" :key="todo.id" class="li">
+    <ul class="positionOfTask">
+            <li v-for="todo in todos" :key="todo.id" class="positionInsideTask">
                 <div class="containerTodo">
                     <div>
-                        <span class='span'>{{ todo.text }}</span>
+                        <span class='todoTD'>{{ todo.text }}</span>
                         <br>
-                        <span class="span">{{ todo.description }}</span>
+                        <span class="todoTD">{{ todo.description }}</span>
                     </div>
                     <div>
-                    <button @click="removeTodo(todo)" class="closeBtn">X</button>
+                    <PopularButton text="Done" @click="doneTask(todo)" />
+                    <PopularButton @click="removeTodo(todo)" text="Delete"/>
                     </div>
                 </div>
             </li>
@@ -21,6 +22,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import MenuButtons from '../../widgets/header/Header.vue'
+import PopularButton from '../../shared/gui/PopularButton.vue'
 import { useToast } from 'vue-toastification';  
 
 const toast = useToast(); 
@@ -34,23 +36,40 @@ interface toDoType {
 let id = 0;
 
 const todos = ref<toDoType[]>([]);
+const doneTodos = ref<toDoType[]>([]);
 
 function loadTodos() {  
-  const storedTodos = localStorage.getItem('todos');  
-  if (storedTodos) {  
-    todos.value = JSON.parse(storedTodos);  
-    id = todos.value.length > 0 ? Math.max(...todos.value.map(todo => todo.id)) + 1 : 0; 
-  }  
+    const storedTodos = localStorage.getItem('todos');  
+    if (storedTodos) {  
+        todos.value = JSON.parse(storedTodos);  
+        id = todos.value.length > 0 ? Math.max(...todos.value.reverse().map(todo => todo.id)) + 1 : 0; 
+    }  
 }  
 
 onMounted (() => {
     loadTodos(); 
 })
 
+function doneTask(todo: toDoType) {  
+    const storedDoneTodos = localStorage.getItem('doneTodos');  
+    let doneArr = storedDoneTodos ? JSON.parse(storedDoneTodos) : [];  
+
+    if (!Array.isArray(doneArr)) {  
+        doneArr = [];
+    }  
+
+    doneArr.push(todo);  
+
+    todos.value = todos.value.filter((t) => t.id !== todo.id);  
+    toast.success('Задача выполнена');  
+    localStorage.setItem('todos', JSON.stringify(todos.value));  
+    localStorage.setItem('doneTodos', JSON.stringify(doneArr));  
+}
+
 function removeTodo(todo: toDoType) {
-  todos.value = todos.value.filter((t) => t.id !== todo.id);
-  toast.error('Такска удалена');
-  localStorage.setItem('todos', JSON.stringify(todos.value));
+    todos.value = todos.value.filter((t) => t.id !== todo.id);
+    toast.error('Такска удалена');
+    localStorage.setItem('todos', JSON.stringify(todos.value));
 }
 </script>
 

@@ -22,6 +22,7 @@ import MenuButtons from '../../widgets/header/Header.vue'
 body {
     background: var(--theme-color);
     color: var(--text-color);
+    margin-top: 90px;
 }
 .main_container {
     display: flex;

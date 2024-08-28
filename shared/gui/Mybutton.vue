@@ -1,15 +1,12 @@
 <template>
     <div class="button_position">
-        <label class="switch">
+      <div class="container">
+        <div class="toggle">
         <input type="checkbox" ref="themeSwitcher" id="button" @change="changeTheme">
-        <div class="button">
-        <div class="light"></div>
-        <div class="dots"></div>
-        <div class="characters"></div>
-        <div class="shine"></div>
-        <div class="shadow"></div>
+        <span class="button"></span>
+        <span class="label">☼</span>
         </div>
-        </label>
+      </div>
     </div>
 </template>
 
@@ -54,118 +51,88 @@ onMounted(() => {
     right: 20px;
 }
 
-.switch {
-  display: block;
-  background-color: black;
-  width: 80px;
-  height: 100px;
-  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2), 0 0 1px 2px black, inset 0 2px 2px -2px white, inset 0 0 2px 15px #47434c, inset 0 0 2px 22px black;
-  border-radius: 5px;
-  padding: 20px;
-  perspective: 700px;
-}
-
-.switch input {
-  display: none;
-}
-
-.switch input:checked + .button {
-  transform: translateZ(20px) rotateX(25deg);
-  box-shadow: 0 -10px 20px #ff1818;
-}
-
-.switch input:checked + .button .light {
-  animation: flicker 0.2s infinite 0.3s;
-}
-
-.switch input:checked + .button .shine {
-  opacity: 1;
-}
-
-.switch input:checked + .button .shadow {
-  opacity: 0;
-}
-
-.switch .button {
-  display: block;
-  transition: all 0.3s cubic-bezier(1, 0, 1, 1);
-  transform-origin: center center -20px;
-  transform: translateZ(20px) rotateX(-25deg);
-  transform-style: preserve-3d;
-  background-color: #9b0621;
-  height: 100%;
+.toggle {
+  display: inline-block;
   position: relative;
-  cursor: pointer;
-  background: linear-gradient(#980000 0%, #6f0000 30%, #6f0000 70%, #980000 100%);
-  background-repeat: no-repeat;
+  height: 50px;
+  width: 50px;
 }
 
-.switch .light {
+.toggle:before {
+  box-shadow: 0;
+  border-radius: 84.5px;
+  background: #fff;
+  position: absolute;
+  margin-left: -36px;
+  margin-top: -36px;
+  opacity: 0.2;
+  height: 100px;
+  width: 100px;
+  left: 50%;
+  top: 50%;
+}
+
+.toogle input:checked~.label {
+  color: rgba(255,0,0,0.8);
+}
+
+.toggle .button {
+  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -10px 15px -1px rgba(255, 255, 255, 0.6), inset 0 3px 4px -1px rgba(255, 255, 255, 0.2), inset 0 0 5px 1px rgba(255, 255, 255, 0.8), inset 0 20px 30px 0 rgba(255, 255, 255, 0.2);
+  border-radius: 68.8px;
+  position: absolute;
+  background: #eaeaea;
+  margin-left: -27px;
+  margin-top: -22px;
+  display: block;
+  height: 55px;
+  width: 55px;
+  left: 50%;
+  top: 50%;
+}
+
+.toggle .label {
+  transition: color 300ms ease-out;
+  line-height: 55px;
+  text-align: center;
+  position: absolute;
+  font-weight: 700;
+  font-size: 40px;
+  display: block;
+  opacity: 0.9;
+  height: 100%;
+  width: 100%;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.toggle input {
   opacity: 0;
-  animation: light-off 1s;
   position: absolute;
-  width: 100%;
+  cursor: pointer;
+  z-index: 1;
   height: 100%;
-  background-image: radial-gradient(#ffc97e, #ff1818 40%, transparent 70%);
-}
-
-.switch .dots {
-  position: absolute;
   width: 100%;
-  height: 100%;
-  background-image: radial-gradient(transparent 30%, rgba(101, 0, 0, 0.7) 70%);
-  background-size: 10px 10px;
+  left: -3px;
+  top: 24px;
 }
 
-.switch .characters {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(white, white) 50% 20%/5% 20%, radial-gradient(circle, transparent 50%, white 52%, white 70%, transparent 72%) 50% 80%/33% 25%;
-  background-repeat: no-repeat;
+.toggle input:active ~ .button {
+  filter: blur(0.5px);
+  box-shadow: 0 12px 25px -4px rgba(0, 0, 0, 0.4), inset 0 -8px 30px 1px rgba(255, 255, 255, 0.9), 0 -10px 15px -1px rgba(255, 255, 255, 0.6), inset 0 8px 25px 0 rgba(0, 0, 0, 0.4), inset 0 0 10px 1px rgba(255, 255, 255, 0.6);
 }
 
-.switch .shine {
-  transition: all 0.3s cubic-bezier(1, 0, 1, 1);
-  opacity: 0.3;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(white, transparent 3%) 50% 50%/97% 97%, linear-gradient(rgba(255, 255, 255, 0.5), transparent 50%, transparent 80%, rgba(255, 255, 255, 0.5)) 50% 50%/97% 97%;
-  background-repeat: no-repeat;
+.toggle input:active ~ .label {
+  font-size: 26px;
+  color: rgba(0, 0, 0, 0.45);
 }
 
-.switch .shadow {
-  transition: all 0.3s cubic-bezier(1, 0, 1, 1);
-  opacity: 1;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(transparent 70%, rgba(0, 0, 0, 0.8));
-  background-repeat: no-repeat;
+.toggle input:checked ~ .button {
+  filter: blur(0.5px);
+  box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.4), inset 0 -8px 25px -1px rgba(255, 255, 255, 0.9), 0 -10px 15px -1px rgba(255, 255, 255, 0.6), inset 0 8px 20px 0 rgba(0, 0, 0, 0.2), inset 0 0 5px 1px rgba(255, 255, 255, 0.6);
 }
 
-@keyframes flicker {
-  0% {
-    opacity: 1;
-  }
-
-  80% {
-    opacity: 0.8;
-  }
-
-  100% {
-    opacity: 1;
-  }
+.toggle input:checked ~ .label {
+  color: rgba(0, 0, 0, 0.8);
 }
 
-@keyframes light-off {
-  0% {
-    opacity: 1;
-  }
-
-  80% {
-    opacity: 0;
-  }
-}
 </style>

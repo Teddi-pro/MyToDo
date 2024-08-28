@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="ts">
+
 defineProps({
     text: String,
     router: String,

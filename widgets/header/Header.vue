@@ -1,5 +1,6 @@
 <template>
     <div class="taski">
+        <div class="buttons">
         <router-link to="/taskDone">
             <PopularButton text="Task done" />
         </router-link>
@@ -9,6 +10,7 @@
         <router-link to="/home">
             <PopularButton text="Make a task"/>
         </router-link>
+        </div>
         <Mybutton />
     </div>
     
@@ -23,7 +25,19 @@ import Mybutton from '../../shared/gui/Mybutton.vue';
 <style lang="scss">
 .taski {
     display: flex;
+    position: fixed;
     justify-content: space-between;
-    width: 30%;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    z-index: 1;
+    background-color: #313131;
+    left: 0;
+    top: 0;
+}
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
 }
 </style>

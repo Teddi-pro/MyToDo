@@ -1,24 +1,14 @@
 <template>
-    <p class="form">
-        <form @submit.prevent="addTodo" class="form">
+    <p class="formOfTask">
+        <form @submit.prevent="addTodo">
         <input
-        class="input"
+        class="nameOfTask"
         :placeholder="props.placeholder"
         v-model="newTodo"
         />
-        <textarea class="text-area" :placeholder="props.placeholdertext" v-model="newDescriptionTodo" ></textarea>
+        <textarea class="taskArea" :placeholder="props.placeholdertext" v-model="newDescriptionTodo" ></textarea>
         <PopularButton text="Add a task" @click="showToast" />
         </form>
-        <!-- <ul class="ul">
-            <li v-for="todo in todos" :key="todo.id" class="li">
-                <div class="containerTodo">
-                    <span class='span'>{{ todo.text }}</span>
-                    <br>
-                    <span class="span">{{ todo.description }}</span>
-                </div>
-                <button @click="removeTodo(todo)" class="closeBtn">X</button>
-            </li>
-        </ul> -->
     </p>
 </template>
 
@@ -70,18 +60,18 @@ function loadTodos() {
 }  
 
 onMounted (() => {
-    loadTodos(); 
+    loadTodos();
 })
-
-function removeTodo(todo: toDoType) {
-  todos.value = todos.value.filter((t) => t.id !== todo.id);
-  toast.error('Такска удалена');
-  localStorage.setItem('todos', JSON.stringify(todos.value));
-}
 </script>
 
 <style lang="scss">
-.input {
+
+.formOfTask {
+    display: flex;
+    flex-direction: column;
+    width: 650px;    
+}
+.nameOfTask {
     width: 500px;
     height: 80px;
     border-radius: 25px;
@@ -89,29 +79,9 @@ function removeTodo(todo: toDoType) {
     padding: 12px;
     font-size: 25px;
     font-family: 'Comic';
+    outline: none;
 }
-.form {
-    display: flex;
-    flex-direction: column;
-    width: 650px;    
-}
-::placeholder {
-    opacity: 0.7;
-    font-size: 25px;
-}
-.ul {
-    display: flex;
-    flex-direction: column;
-    width: 600px;
-    padding: 0;
-}
-.li {
-    display: flex;
-    line-height: 30px;
-    border-radius: 25px;
-    margin-bottom: 10px;
-}
-.text-area {
+.taskArea {
     width: 500px;
     height: 100px;
     margin: 5px 0 15px 0;
@@ -120,17 +90,21 @@ function removeTodo(todo: toDoType) {
     padding: 12px;
     font-size: 25px;
     font-family: 'Comic';
+    outline: none;
 }
-.closeBtn {
-    width: 25px;
-    height: 25px;
-    border-radius: 40px;
-    margin-left: 10px;
+::placeholder {
+    opacity: 0.7;
+    font-size: 25px;
 }
-.closeBtn:hover {
-    background-color: #d1f8f1; /* Цвет фона */
-    box-shadow: 0 0 0 2px #00af8f, 0 0 0 4px #00af8f;
-  outline: 0;
+.positionOfTask {
+    width: 600px;
+    padding: 0;
+}
+.positionInsideTask {
+    display: flex;
+    line-height: 30px;
+    border-radius: 25px;
+    margin-bottom: 10px;
 }
 .containerTodo {
     display: flex;
@@ -139,11 +113,12 @@ function removeTodo(todo: toDoType) {
     border-radius: 25px;
     word-break: break-word;
 }
-.span {
+.todoTD {
     display: flex;
     width: 500px;
     word-spacing: 5px;
     font-size: 25px;
 	line-height: 30px;
+    margin-right: 5px;
 }
 </style>
