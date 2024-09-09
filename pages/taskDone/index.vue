@@ -1,5 +1,5 @@
 <template>
-    <MenuButtons />
+    <Header />
     <h1 class="correctTask">
     <ul class="positionOfTask">
             <li v-for="todo in doneTodos" :key="todo.id" class="positionInsideTask">
@@ -19,7 +19,7 @@
     </template>
     
 <script setup lang="ts">
-import MenuButtons from '../../widgets/header/Header.vue'
+import Header from '../../widgets/header/Header.vue'
 import { ref, onMounted } from 'vue';
 import { useToast } from 'vue-toastification';  
 import PopularButton from '../../shared/gui/PopularButton.vue'

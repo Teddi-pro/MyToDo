@@ -43,14 +43,6 @@ onMounted(() => {
 </script>  
 
 <style lang="scss">
-.button_position {
-    position: fixed;
-    top: 20px;
-    z-index: 100;
-    bottom: 20px;
-    right: 20px;
-}
-
 .toggle {
   display: inline-block;
   position: relative;

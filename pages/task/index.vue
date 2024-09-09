@@ -1,5 +1,5 @@
 <template>
-    <MenuButtons />
+    <Header />
     <h1 class="correctTask">
     <ul class="positionOfTask">
             <li v-for="todo in todos" :key="todo.id" class="positionInsideTask">
@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import MenuButtons from '../../widgets/header/Header.vue'
+import Header from '../../widgets/header/Header.vue'
 import PopularButton from '../../shared/gui/PopularButton.vue'
 import { useToast } from 'vue-toastification';  
 
@@ -51,12 +51,11 @@ onMounted (() => {
 })
 
 function doneTask(todo: toDoType) {  
-    const storedDoneTodos = localStorage.getItem('doneTodos');  
-    let doneArr = storedDoneTodos ? JSON.parse(storedDoneTodos) : [];  
+    let doneArr: toDoType[] = JSON.parse(localStorage.getItem('doneTodos') || '[]');
 
     if (!Array.isArray(doneArr)) {  
         doneArr = [];
-    }  
+    }
 
     doneArr.push(todo);  
 

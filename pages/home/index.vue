@@ -1,13 +1,19 @@
 <template>
-    <MenuButtons />
+    <Header />
+    <div class="hamster">
+    <Hamster />
+    </div>
     <div class="main_container">
+        <BorderSwitch />
         <FormToFill  placeholder="Write a name of task" placeholdertext="Write your task" />
     </div>
 </template>
 
 <script setup lang="ts">
 import FormToFill from '../../widgets/form-to-fill/FormToFill.vue'
-import MenuButtons from '../../widgets/header/Header.vue'
+import Header from '../../widgets/header/Header.vue'
+import BorderSwitch from '../../shared/gui/BorderSwitch.vue'
+import Hamster from '../../shared/gui/Hamster.vue'
 </script>
 
 <style lang="scss">
@@ -26,6 +32,12 @@ body {
 }
 .main_container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.hamster {
+    display: flex;
+    align-items: center;
+
 }
 </style>
